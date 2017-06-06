@@ -5,6 +5,9 @@ import Control.Monad.Trans.Class
 
 embedded :: MaybeT (ExceptT String (ReaderT () IO)) Int
 embedded = MaybeT $ ExceptT $ ReaderT $ fmap return (const (Right (Just 1)))
+
+embedded2 :: MaybeT (ExceptT String (ReaderT () IO)) Int
+embedded2 = MaybeT . ExceptT . ReaderT . (fmap pure) $ (const (Right (Just 1)))
 -- b0 -> Either a0 (Maybe Integer)
 -- -> b0 (Either a0 (Maybe Integer))
 -- ReaderT :: (r -> m a) -> ReaderT r m a
