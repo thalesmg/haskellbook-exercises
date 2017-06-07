@@ -1,3 +1,7 @@
+module ReaderT where
+
+import Control.Monad.Trans.Class
+
 newtype ReaderT r m a =
   ReaderT { runReaderT :: r -> m a }
 
@@ -21,3 +25,6 @@ instance Monad m => Monad (ReaderT r m) where
     -- ReaderT $ \r -> do
     --   a <- rma r
     --   runReaderT (f a) r
+
+instance MonadTrans (ReaderT r) where
+  lift ma = ReaderT $ const ma
